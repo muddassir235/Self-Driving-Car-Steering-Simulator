@@ -16,6 +16,7 @@ import scipy.misc
 # Fix error with Keras and TensorFlow
 import tensorflow as tf
 tf.python.control_flow_ops = tf
+import cv2
 
 import model
 
@@ -26,7 +27,8 @@ saver.restore(sess, "save/model_trained_on_game.ckpt")
 sio = socketio.Server()
 app = Flask(__name__)
 
-prev_image_array = None
+prev_images = []
+prev_angles = []
 
 @sio.on('telemetry')
 def telemetry(sid, data):
@@ -46,16 +48,31 @@ def telemetry(sid, data):
 
     print(image_array.shape)
 
-    image_array = scipy.misc.imresize(image_array[-150:], [66, 200]) / 255.0
+    image_array = scipy.misc.imresize(image_array[25:135], [66, 200]) / 255.0
+
+    prev_images.append(image_array)
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     #steering_angle = float(model.predict(transformed_image_array, batch_size=1))
-    steering_angle = model.y.eval(feed_dict={model.x: [image_array], model.keep_prob: 1.0})[0][0]
+    steering_angle = model.y.eval(feed_dict={model.x: prev_images, model.keep_prob: 1.0})[0][0]
+
+    prev_angles.append(steering_angle)
+
+    if(len(prev_images) == 1):
+        prev_images.reverse()
+        prev_images.pop()
+        prev_images.reverse()
+
+    if(len(prev_angles) == 2):
+        prev_angles.reverse()
+        prev_angles.pop()
+        prev_angles.reverse()
+
     print(steering_angle)
 
     # The driving model currently just outputs a constant throttle. Feel free to edit this.
     throttle = 1.0
     print(steering_angle, throttle)
-    send_control(steering_angle, throttle)
+    send_control(sum(prev_angles)/len(prev_angles), throttle)
 
 
 @sio.on('connect')

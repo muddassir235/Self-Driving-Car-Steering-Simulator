@@ -1,13 +1,6 @@
-# Autopilot-TensorFlow
-A TensorFlow implementation of this [Nvidia paper](https://arxiv.org/pdf/1604.07316.pdf) with some changes.
+# **Self-Driving Car Steering Simulator**
 
-#How to Use
-Download the [dataset](https://drive.google.com/file/d/0B-KJCaaF7ellQUkzdkpsQkloenM/view?usp=sharing) and extract into the repository folder
+This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) of the NVIDIA End to End Learning for Self-Driving Cars [paper](https://arxiv.org/pdf/1604.07316.pdf).
 
-Use `python train.py` to train the model
-
-Use `python run.py` to run the model on a live webcam feed
-
-Use `python run_dataset.py` to run the model on the dataset
-
-To visualize training using Tensorboard use `tensorboard --logdir=./logs`, then open http://0.0.0.0:6006/ into your web browser.
+### Model
+The model has five convolutional layers, four fully connected layers and one output layer. It applies dropout in all of the fully connected layers
