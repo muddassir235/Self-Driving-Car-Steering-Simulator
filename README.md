@@ -174,6 +174,10 @@ A python generator is used in order to load the images into memory batch by batc
 ### Training
 The model was trained on a [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip) provided by Udacity. The dataset contain **~8000** examples of center, right and left camera images along with steering angles. I used **80%** of this data for training and **20%** for validation. I also generated some additional test data by driving around on **track 1** of the Udacity Beta simulator.
 
+After about 30 epochs the model started working on track1.
+
+After 35 epochs the model works on both track 1 and track 2 with full throttle.
+
 **`trainer.py`**
 
   ```python

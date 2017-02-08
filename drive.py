@@ -55,7 +55,7 @@ def telemetry(sid, data):
     #steering_angle = float(model.predict(transformed_image_array, batch_size=1))
     steering_angle = model.y.eval(feed_dict={model.x: prev_images, model.keep_prob: 1.0})[0][0]
 
-    steering_angle = steering_angle * 2
+    steering_angle = steering_angle * 3
 
     prev_angles.append(steering_angle)
 
