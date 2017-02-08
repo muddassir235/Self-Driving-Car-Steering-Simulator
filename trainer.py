@@ -35,7 +35,7 @@ class trainer(object):
             model.h_fc1 = tf.stop_gradient(model.h_fc1)
 
     def train(self):
-        # train over the dataset about 30 times
+        # train over the dataset
 
         for epoch in range(self.epochs):
             batches_handled = 0

@@ -31,6 +31,9 @@ class data_handler(object):
             self.metadata.pop()
             self.metadata.reverse()
 
+        # shuffle the training data
+        shuffle(self.metadata)
+
         self.test_metadata = []
 
         # loading metadata
@@ -260,12 +263,13 @@ class data_handler(object):
         if(self.coin_flip()):
             image = self.random_blur(image)
 
-        image, steering = self.random_translation(image,steering)
+        if(self.coin_flip()):
+            image, steering = self.random_translation(image,steering)
 
         if(self.coin_flip()):
             image, steering = self.horizontal_flip_image(image,steering)
 
-        return image/255.0, steering
+        return (image/255.0)-0.5, steering
 
     def coin_flip(self):
         return random()<0.5
@@ -277,6 +281,7 @@ class data_handler(object):
         return x
 
     def random_gamma_correction_rgb(self,x):
+        # Partially taken from http://www.pyimagesearch.com/2015/10/05/opencv-gamma-correction/
         # build a lookup table mapping the pixel values [0, 255] to
         # their adjusted gamma values
         gamma = 0.4 + random() * 1.2
@@ -313,13 +318,13 @@ class data_handler(object):
         x = np.array(x)
         rows,cols,rgb = x.shape
 
-        rand_for_x = np.random.uniform()
+        rand_for_x = random()
 
-        translate_y = -24 + np.random.uniform()*48
+        translate_y = -5 + random()*10
         translate_x = -30 + rand_for_x*60
 
         M = np.float32([[1,0,translate_x],[0,1,translate_y]])
-        return cv2.warpAffine(x,M,(cols,rows)), (steer+(rand_for_x-0.5)*0.6)
+        return cv2.warpAffine(x,M,(cols,rows)), (steer+(rand_for_x-0.5)*0.2)
 
     # def random_translation(self,x,steer):
     #     x = np.array(x)wwwwwwwwwwwwwwwwwwwwww
@@ -369,9 +374,6 @@ class data_handler(object):
             i_4 = (max_x,0)
 
         vertices = np.array([[i_1,i_2,i_3,i_4]], dtype = np.int32)
-
-        #for i in range(10):
-         #   np.append(vertices[0],(random()*max_x,random()*max_y))
 
         x = self.region_of_interest(x,vertices)
 

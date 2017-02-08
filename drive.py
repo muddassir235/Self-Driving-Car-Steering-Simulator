@@ -48,12 +48,14 @@ def telemetry(sid, data):
 
     print(image_array.shape)
 
-    image_array = scipy.misc.imresize(image_array[25:135], [66, 200]) / 255.0
+    image_array = (scipy.misc.imresize(image_array[25:135], [66, 200]) / 255.0)-0.5
 
     prev_images.append(image_array)
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     #steering_angle = float(model.predict(transformed_image_array, batch_size=1))
     steering_angle = model.y.eval(feed_dict={model.x: prev_images, model.keep_prob: 1.0})[0][0]
+
+    steering_angle = steering_angle * 2
 
     prev_angles.append(steering_angle)
 
