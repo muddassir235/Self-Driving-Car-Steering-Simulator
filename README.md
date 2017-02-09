@@ -174,6 +174,59 @@ A python generator is used in order to load the images into memory batch by batc
 ### Training
 The model was trained on a [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip) provided by Udacity. The dataset contain **~8000** examples of center, right and left camera images along with steering angles. I used **80%** of this data for training and **20%** for validation. I also generated some additional test data by driving around on **track 1** of the Udacity Beta simulator.
 
+#### Dataset Details:
+For training I used the [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip) provided by Udacity **only**. I didn't generate any additional data for **training**.
+
+Before any modification the distribution of angles fir center images in the data was a follows.
+
+
+![](https://github.com/muddassir235/Self-Driving-Car-Steering-Simulator/blob/master/Img/only_center.PNG?raw=true)
+(_The x-axis shows the angles and the y-axis shows their occurrence_)
+
+When I trained the network using such data alone the network went off track and wasn't able to drive properly. I then included the left and right images with various offsets such as 0.3, 0.2, but these values let to large shifts in the steering and the car would wear off track. 0.3 works OK when the training the network for few epochs but when the number of epochs is increased the vehicles starts to move in a zig-zag fashion across the road with more and more hard turns.
+
+At the last moment I changed the offset to 0.09 and started getting better results. But as a result of this I had to multiply the angles I got times **3** while driving tin order to make proper turns.
+
+Here are examples of the angles for center, left and right images.
+
+![](https://github.com/muddassir235/Self-Driving-Car-Steering-Simulator/blob/master/Img/left_and_right_image_offset.PNG?raw=true)
+
+Here is the distribution of angles after left and right offsets.
+
+![](https://github.com/muddassir235/Self-Driving-Car-Steering-Simulator/blob/master/Img/plus_left_and_right.PNG?raw=true)
+
+But after adding offset to the angles I still had to gather additional recovery data in order to make the car drive properly and perfectly. And, even after doing that the cars had no clue on track2.
+
+So I read some articles online about image augmentation, especially the one by Vivek Yadav [](https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9#.q9gqrgqp0) was very useful. I decided to add augmentation to my pipeline. So evey set of image and steering angle is augmented randomly in terms of gamma, saturation, translation, brightness, shadow, lightness e.t.c. This can be seen in the `get_image_and_steering()` in the `data_handler` class.
+
+The width of my input to the Convolutional-Network is 200. I set the range of translation to be from -30 to +30 in the x-axis and from -5 to +5 in the y-axis. I didn't apply any offset to the angle for y-offset to image. For offsets to the image in x-axis I apply a linear offset to the angles ranging from -0.1 for -30 and +0.1 for +30. I came to this formula after lots of trail and error there is a great capacity for improvement in this regard.
+
+```
+  rand_for_x = random()
+
+  translate_x = -30 + rand_for_x*60
+
+  steer = steer+(rand_for_x-0.5)*0.2
+```
+
+So after applying these augmentations to the inputs of the network they looked like the following.
+
+![](https://github.com/muddassir235/Self-Driving-Car-Steering-Simulator/blob/master/Img/augmentation.PNG?raw=true)
+
+The distribution after applying the horizontal flipping and translation is as follows.
+
+![](https://github.com/muddassir235/Self-Driving-Car-Steering-Simulator/blob/master/Img/plus_left_right_augmentation.PNG?raw=true)
+
+### Reflections
+
+**Looking back, the model can be improved even further by applying a few small modifications**
+
+* **Using ELU instead of RELU to improve convergence rates. (_Suggested by Udacity reviewer_)**
+* **Adding better shadows to the model so it can work on _track_ 2 in Fast, Simple, Good, Beautiful, Fantastic modes.**
+* **Applying better offsets to the angels in order to get a better distribution of angles and avoid zig-zag behaviour**
+
+For testing I generated some additional data from the simulator.
+
 After about 30 epochs the model started working on track1.
 
 After 35 epochs the model works on both track 1 and track 2 with full throttle.
