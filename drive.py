@@ -71,8 +71,12 @@ def telemetry(sid, data):
 
     print(steering_angle)
 
+    Kp = 0.5
+    DESIRED_SPEED = 15
+    throttle = (DESIRED_SPEED-float(speed))*Kp
+
     # The driving model currently just outputs a constant throttle. Feel free to edit this.
-    throttle = 1.0
+    #throttle = 1.0
     print(steering_angle, throttle)
     send_control(sum(prev_angles)/len(prev_angles), throttle)
 

@@ -3,7 +3,7 @@ import scipy.misc
 from random import shuffle
 import cv2
 from skimage.util import random_noise
-from random import random
+from numpy.random import uniform as random
 import numpy as np
 
 class data_handler(object):
@@ -94,10 +94,15 @@ class data_handler(object):
 
                 # restart from the beginning
                 self.step_train = 0
+                shuffle(self.metadata_train)
 
             # load images and steering angles for current batch
             for j in range(start,end,1):
-                center_path = self.root_path+self.metadata_train[j][0]
+                if(not self.metadata_train[j][0][0] == 'C'):
+                    center_path = self.root_path+self.metadata_train[j][0]
+                else:
+                    center_path = self.metadata_train[j][0]
+
                 center_steer = [float(self.metadata_train[j][3])]
                 # X_train.append(self.get_image(self.root_path+self.metadata_train[j][0]))
                 # y_train.append([float(self.metadata_train[j][3])])
@@ -107,10 +112,26 @@ class data_handler(object):
                 y_train.append(center_steer)
 
                 if(self.left_and_right_images):
-                    left_path = self.root_path+self.metadata_train[j][1][1:]
+                    if(self.metadata_train[j][1][0] == ' ' and not self.metadata_train[j][1][1]=='C'):
+                        left_path = self.root_path+self.metadata_train[j][1][1:]
+                    elif(self.metadata_train[j][1][0] == ' ' and self.metadata_train[j][1][1]=='C'):
+                        left_path = self.metadata_train[j][1][1:]
+                    elif(self.metadata_train[j][1][0] == 'C'):
+                        left_path = self.metadata_train[j][1]
+                    else:
+                        left_path = self.root_path + self.metadata_train[j][1]
+
                     left_steer = [float(self.metadata_train[j][3])+self.left_right_offset]
 
-                    right_path = self.root_path+self.metadata_train[j][2][1:]
+                    if(self.metadata_train[j][2][0] == ' ' and not self.metadata_train[j][2][1]=='C'):
+                        right_path = self.root_path+self.metadata_train[j][2][1:]
+                    elif(self.metadata_train[j][2][0] == ' ' and self.metadata_train[j][2][1]=='C'):
+                        right_path = self.metadata_train[j][2][1:]
+                    elif(self.metadata_train[j][2][0] == 'C'):
+                        right_path = self.metadata_train[j][2]
+                    else:
+                        right_path = self.root_path + self.metadata_train[j][2]
+
                     right_steer = [float(self.metadata_train[j][3])-self.left_right_offset]
 
                     left_image, left_steer[0] = self.get_image_and_steering(left_path, left_steer[0])
@@ -148,9 +169,15 @@ class data_handler(object):
                 # restart from the beginning
                 self.step_val = 0
 
+                shuffle(self.metadata_val)
+
             # laod images and steering angles for current batch
             for j in range(start,end):
-                center_path = self.root_path+self.metadata_val[j][0]
+                if(not self.metadata_val[j][0][0] == 'C'):
+                    center_path = self.root_path+self.metadata_val[j][0]
+                else:
+                    center_path = self.metadata_val[j][0]
+
                 center_steer = [float(self.metadata_val[j][3])]
                 # X_val.append(self.get_image(self.root_path+self.metadata_val[j][0]))
                 # y_val.append([float(self.metadata_val[j][3])])
@@ -160,10 +187,26 @@ class data_handler(object):
                 y_val.append(center_steer)
 
                 if(self.left_and_right_images):
-                    path_left = self.root_path + self.metadata_val[j][1][1:]
+                    if(self.metadata_val[j][1][0]==' ' and not self.metadata_val[j][1][1] == 'C'):
+                        path_left = self.root_path + self.metadata_val[j][1][1:]
+                    elif(self.metadata_val[j][1][0]==' ' and self.metadata_val[j][1][1] == 'C'):
+                        path_left = self.metadata_val[j][1][1:]
+                    elif(self.metadata_val[j][1][0] == 'C'):
+                         path_left = self.metadata_val[j][1]
+                    else:
+                        path_left = self.root_path + self.metadata_val[j][1]
+
                     steer_left = [float(self.metadata_val[j][3])+self.left_right_offset]
 
-                    path_right = self.root_path+self.metadata_val[j][2][1:]
+                    if(self.metadata_val[j][2][0] == ' ' and not self.metadata_val[j][2][1] == 'C'):
+                        path_right = self.root_path+self.metadata_val[j][2][1:]
+                    elif(self.metadata_val[j][2][0] == ' ' and self.metadata_val[j][2][1] == 'C'):
+                        path_right = self.metadata_val[j][2][1:]
+                    elif(self.metadata_val[j][2][0] == 'C'):
+                        path_right = self.metadata_val[j][2]
+                    else:
+                        path_right = self.root_path+self.metadata_val[j][2]
+
                     steer_right = [float(self.metadata_val[j][3])-self.left_right_offset]
 
                     image_left, steer_left[0] = self.get_image_and_steering(path_left,steer_left[0])
@@ -196,6 +239,7 @@ class data_handler(object):
             if(end >= len(self.test_metadata)):
                 end = len(self.test_metadata)
                 self.step_test = 0
+                shuffle(self.test_metadata)
 
             for j in range(start,end):
                 center_path = self.root_path +self.test_metadata[j][0]
@@ -247,27 +291,22 @@ class data_handler(object):
         image = scipy.misc.imresize(scipy.misc.imread(path)[25:135], [66, 200])
 
         if(self.coin_flip()):
-            image = self.random_gamma_correction_rgb(image)
-
-        if(self.coin_flip()):
-            image = self.random_brightness_change_rgb(image)
-
-        if(self.coin_flip()):
             image = self.random_saturation_change(image)
 
         if(self.coin_flip()):
             image = self.random_lightness_change(image)
 
+        if(self.coin_flip()):
+            image = self.invert_image(image)
+
         image = self.random_shadow(image)
 
-        if(self.coin_flip()):
-            image = self.random_blur(image)
-
-        if(self.coin_flip()):
-            image, steering = self.random_translation(image,steering)
+        image, steering = self.random_translation(image,steering)
 
         if(self.coin_flip()):
             image, steering = self.horizontal_flip_image(image,steering)
+
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
 
         return (image/255.0)-0.5, steering
 
@@ -300,14 +339,17 @@ class data_handler(object):
 
 
     def random_saturation_change(self,x):
-        saturation_change = 0.4 + 1.2*random()
+        saturation_change = 1.5*random()
         x = np.array(x)
         x = cv2.cvtColor(x,cv2.COLOR_RGB2HSV)
         x[:,:,1] = x[:,:,1]*saturation_change
         return cv2.cvtColor(x,cv2.COLOR_HSV2RGB)
 
+    def invert_image(self,x):
+        return -x+255
+
     def random_lightness_change(self,x):
-        lightness_change = 0.4 + 1.2*random()
+        lightness_change = 0.2 + 1.4*random()
         x = np.array(x)
         x = cv2.cvtColor(x,cv2.COLOR_RGB2HLS)
         x[:,:,1] = x[:,:,1]*lightness_change
@@ -320,11 +362,11 @@ class data_handler(object):
 
         rand_for_x = random()
 
-        translate_y = -5 + random()*10
+        translate_y = -10 + random()*20
         translate_x = -30 + rand_for_x*60
 
         M = np.float32([[1,0,translate_x],[0,1,translate_y]])
-        return cv2.warpAffine(x,M,(cols,rows)), (steer+(rand_for_x-0.5)*0.2)
+        return cv2.warpAffine(x,M,(cols,rows)), (steer+(rand_for_x-0.5)*0.4)
 
     # def random_translation(self,x,steer):
     #     x = np.array(x)wwwwwwwwwwwwwwwwwwwwww
@@ -389,7 +431,7 @@ class data_handler(object):
 
     def region_of_interest(self,x, vertices):
 
-        random_brightness = 0.4 + random()*1.2
+        random_brightness = 0.20
         mask = np.zeros_like(x)
 
         ignore_mask_color = [0,0,255]
@@ -400,4 +442,21 @@ class data_handler(object):
 
         x[:,:,2][indices] = x[:,:,2][indices]*random_brightness
 
+        return x
+
+    def cut_top(self,x):
+        x = cv2.cvtColor(x,cv2.COLOR_RGB2HSV)
+        vertices = np.array([[(0,0),(200,0),(200,33),(0,33)]],np.int32)
+        random_brightness = 0
+        mask = np.zeros_like(x)
+
+        ignore_mask_color = [0,0,255]
+
+        cv2.fillPoly(mask, vertices, ignore_mask_color)
+
+        indices = mask[:,:,2] == 255
+
+        x[:,:,2][indices] = x[:,:,2][indices]*random_brightness
+
+        x = cv2.cvtColor(x,cv2.COLOR_HSV2RGB)
         return x
