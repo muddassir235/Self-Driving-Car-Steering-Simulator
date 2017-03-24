@@ -431,7 +431,7 @@ class data_handler(object):
 
     def region_of_interest(self,x, vertices):
 
-        random_brightness = 0.20
+        random_brightness = 0.13
         mask = np.zeros_like(x)
 
         ignore_mask_color = [0,0,255]

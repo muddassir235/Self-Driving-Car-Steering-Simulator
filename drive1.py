@@ -71,18 +71,19 @@ def telemetry(sid, data):
         image = Image.open(BytesIO(base64.b64decode(imgString)))
         image_array = np.asarray(image)
         
+
         image_array = cv2.cvtColor(image_array, cv2.COLOR_RGB2YUV)
         image_array = (scipy.misc.imresize(image_array[25:135], [66, 200]) / 255.0)-0.5
         #steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
         steering_angle = model.y.eval(feed_dict={model.x: image_array[None, :, :, :], model.keep_prob: 1.0})[0][0]
 
-        factor = float(speed)/31.0
-        steering_angle = steering_angle*2.2
+        steering_angle = steering_angle*1.9
+
 
         throttle = controller.update(float(speed))
-        #throttle = max(throttle, -0.15/0.05 * abs(steering_angle) + 0.35)
+        throttle = max(throttle, -0.15/0.05 * abs(steering_angle) + 0.35)
 
-        print(steering_angle, throttle)
+        #print(steering_angle, throttle)
         send_control(steering_angle, throttle)
 
         # # save frame
