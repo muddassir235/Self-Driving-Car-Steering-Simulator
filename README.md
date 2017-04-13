@@ -2,18 +2,18 @@
 
 This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) of the NVIDIA End to End Learning for Self-Driving Cars [paper](https://arxiv.org/pdf/1604.07316.pdf).
 
-## **How to run**
-  * To drive simply type the following command in while in the project directory:
-    > **python drive.py**
+![](https://cdn-images-1.medium.com/max/1980/1*2u3zy6GRNBKb5CAVNqkk9Q.png)
 
-  As I have made the project using tensorflow no need to type `model.json` in front of it
-  * To train type the following:
-    > **python train_on_game.py**
+#  _**How to run**_
+  * _**To drive simply type the following command in while in the project directory** (I have made the project using tensorflow such that there is no need to type `model.json` in front of it):_
+    > **`python drive.py`**
 
-    In order to train there need to be two metatdata(csv) files in the project folder:
-    * **driving_log.csv** (_used for training and validation_)
-    * **test_driving_log.csv** (_used for testing_)
+  * _**To train type the following:**_
+    > **`python train_on_game.py`**
 
+    _**In order to train there need to be two metatdata(csv) files in the project folder:**_
+    * **`driving_log.csv`** (_used for training and validation_)
+    * **`test_driving_log.csv`** (_used for testing_)
 
 ### Model
 The model has five convolutional layers, four fully connected layers and one output layer. It applies dropout in all of the fully connected layers. The following diagram from the NVIDIA paper illustrates the model.
@@ -231,6 +231,7 @@ After about 30 epochs the model started working on track1.
 
 After 35 epochs the model works on both track 1 and track 2 with full throttle.
 
+## **Documentation**
 **`trainer.py`**
 
   ```python
