@@ -25,9 +25,7 @@ The model has five convolutional layers, four fully connected layers and one out
 ![][image1]
 
 <p></p>
-
 <p></p>
-
 <p></p>A complete table of the structure of the DAVE-2 Architecture.
 <p></p>
 <table>
@@ -36,10 +34,10 @@ The model has five convolutional layers, four fully connected layers and one out
   </tr>
   <tr>
   <tr>
-    <td><b><i>Layer No.</i></b></td>
-    <td><b><i>Kernel Size</i></b></td>
-    <td><b><i>No. of Kernels</i></b></td>
-    <td><b><i>Stride</i></b></td>
+    <td><i>Layer No.</i></td>
+    <td><i>Kernel Size</i></td>
+    <td><i>No. of Kernels</i></td>
+    <td><i>Stride</i></td>
   </tr>
     <td><b>1st</b></td>
     <td>5x5</td>
@@ -76,8 +74,8 @@ The model has five convolutional layers, four fully connected layers and one out
   </tr>
 
   <tr>
-    <td colspan="2"><b><i>Layer No.</i></b></td>
-    <td colspan="2"><b><i>Width</i></b></td>
+    <td colspan="2"><i>Layer No.</i></td>
+    <td colspan="2"><i>Width</i></td>
   </tr>
   <tr>
     <td colspan="2"><b>6th</b></td>
@@ -107,7 +105,7 @@ The model has five convolutional layers, four fully connected layers and one out
 
 
 
-#### Augmentation
+### Augmentation
 
 I applied Augmentation techniques in order to make my model generalize from track 1 to track 2. I used the following Augmentation techniques.
 
@@ -203,7 +201,7 @@ def random_translation(self,x,steer):
 
 * Also images are randomly flipped horizontally.
 
-#### Data Generation
+### Data Generation
 Images are picked from the metatdata provided **driving_log.csv** file and passed through the augmentor to get Training data.
 
 The top **25 pixels** of the image are ignored. as well as the bottom **25** ones in order to get rid of the front of the car from the images.
@@ -245,7 +243,7 @@ A python generator is used in order to load the images into memory batch by batc
 ### Training
 The model was trained on a [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip) provided by Udacity. The dataset contain **~8000** examples of center, right and left camera images along with steering angles. I used **80%** of this data for training and **20%** for validation. I also generated some additional test data by driving around on **track 1** of the Udacity Beta simulator.
 
-#### Dataset Details:
+### Dataset Details:
 For training I used the [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2016/December/584f6edd_data/data.zip) provided by Udacity **only**. I didn't generate any additional data for **training**.
 
 Before any modification the distribution of angles fir center images in the data was a follows.
