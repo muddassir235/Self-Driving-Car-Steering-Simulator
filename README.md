@@ -2,8 +2,11 @@
 
 This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) implementation of the NVIDIA End to End Learning for Self-Driving Cars **(DAVE-2)** [paper](https://arxiv.org/pdf/1604.07316.pdf).
 
-<div style="text-align:center">
-<img src="https://cdn-images-1.medium.com/max/1980/1*2u3zy6GRNBKb5CAVNqkk9Q.png"  width="500" height="370" /><p></p></div><div style="text-align:center"><i><b>Udacity Self-Driving Vehicle Simulator</b> (Credits: Udacity)</i></center></div>
+[//]: # (Image References)
+[image0]: ./Img/simulator_image.png
+[image1]: ./Img/dave2.png
+
+![][image0]
 
 #  _**How to run**_
   * _**To drive simply type the following command in while in the project directory** (I have made the project using tensorflow such that there is no need to type `model.json` in front of it):_
@@ -19,12 +22,10 @@ This is a Self-Driving Car steering simulator based on Sully Chen's [model](http
 ### Model
 The model has five convolutional layers, four fully connected layers and one output layer. It applies dropout in all of the fully connected layers. The following diagram from the NVIDIA paper illustrates the model.
 
-<div style="text-align:center"><img src="https://cdn-images-1.medium.com/max/1980/1*_ALA3C3qeRQgJoh3LZnFSg.png"  width="500" height="730" /><p></p></div><div style="text-align:center"><i><b>DAVE-2 Architecture</b> (Credits: NVIDIA)</i></div>
-
+![][image1]
 
 <p></p>A complete table of the structure of the DAVE-2 Architecture.
 
-<div align="center">
 <table>
   <tr>
     <td colspan="4"><b>Convolutional Layers</b></td>
@@ -36,31 +37,31 @@ The model has five convolutional layers, four fully connected layers and one out
     <td><b><i>No. of Kernels</i></b></td>
     <td><b><i>Stride</i></b></td>
   </tr>
-    <td>**1st**</td>
+    <td><b>1st</b></td>
     <td>5x5</td>
     <td>24</td>
     <td>2x2</td>
   </tr>
   <tr>
-    <td>**2nd**</td>
+    <td><b>2nd</b></td>
     <td>5x5</td>
     <td>36</td>
     <td>2x2</td>
   </tr>
   <tr>
-    <td>**3rd**</td>
+    <td><b>3rd</b></td>
     <td>5x5</td>
     <td>48</td>
     <td>2x2</td>
   </tr>
   <tr>
-    <td>**4th**</td>
+    <td><b>4th</b></td>
     <td>3x3</td>
     <td>64</td>
     <td>1x1</td>
   </tr>
   <tr>
-    <td>**5th**</td>
+    <td><b>5th</b></td>
     <td>3x3</td>
     <td>64</td>
     <td>1x1</td>
@@ -75,19 +76,19 @@ The model has five convolutional layers, four fully connected layers and one out
     <td colspan="2"><b><i>Width</i></b></td>
   </tr>
   <tr>
-    <td colspan="2">**6th**</td>
+    <td colspan="2"><b>6th</b></td>
     <td colspan="2">1164</td>
   </tr>
   <tr>
-    <td colspan="2">**7th**</td>
+    <td colspan="2"><b>7th</b></td>
     <td colspan="2">100</td>
   </tr>
   <tr>
-    <td colspan="2">**8th**</td>
+    <td colspan="2"><b>8th</b></td>
     <td colspan="2">50</td>
   </tr>
   <tr>
-    <td colspan="2">**9th**</td>
+    <td colspan="2"><b>9th</b></td>
     <td colspan="2">10</td>
   </tr>
 
@@ -99,7 +100,6 @@ The model has five convolutional layers, four fully connected layers and one out
     <td colspan="3">1 Neuron followed by <b>2*atan(x)</b> activation</td>
   </tr>
 </table>
-</div><p></p><div style="text-align:center"><i><b>Table showing hyperparameters</b></i></div>
 
 
 
