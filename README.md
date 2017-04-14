@@ -1,8 +1,9 @@
 # **Self-Driving Car Steering Simulator**
 
-This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) of the NVIDIA End to End Learning for Self-Driving Cars [paper](https://arxiv.org/pdf/1604.07316.pdf).
+This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) implementation of the NVIDIA End to End Learning for Self-Driving Cars **(DAVE-2)** [paper](https://arxiv.org/pdf/1604.07316.pdf).
 
-![](https://cdn-images-1.medium.com/max/1980/1*2u3zy6GRNBKb5CAVNqkk9Q.png)
+<center>
+<img src="https://cdn-images-1.medium.com/max/1980/1*2u3zy6GRNBKb5CAVNqkk9Q.png"  width="500" height="370" /><p></p></center><center><i><b>Udacity Self-Driving Vehicle Simulator</b> (Credits: Udacity)</i></center>
 
 #  _**How to run**_
   * _**To drive simply type the following command in while in the project directory** (I have made the project using tensorflow such that there is no need to type `model.json` in front of it):_
@@ -18,23 +19,89 @@ This is a Self-Driving Car steering simulator based on Sully Chen's [model](http
 ### Model
 The model has five convolutional layers, four fully connected layers and one output layer. It applies dropout in all of the fully connected layers. The following diagram from the NVIDIA paper illustrates the model.
 
-Convolutional Layers:
-* **1st** : 24 5x5 kernels with stride of 2x2
-* **2nd** : 36 5x5 kernels with stride of 2x2
-* **3rd** : 48 5x5 kernels with stride of 2x2
-* **4th** : 64 3x3 kernels with stride of 1x1
-* **5th** : 64 3x3 kernels with stride of 1x1
+<center><img src="https://cdn-images-1.medium.com/max/1980/1*_ALA3C3qeRQgJoh3LZnFSg.png"  width="500" height="730" /><p></p></center><center><i><b>DAVE-2 Architecture</b> (Credits: NVIDIA)</i></center>
 
-Fully Connected Layers:
-* **1st** : 1164
-* **2nd** : 100
-* **3rd** : 50
-* **4th** : 10
 
-Output Layer:
-* **1** Neuron followed by **2*atan(x)** activation
+<p></p>A complete table of the structure of the DAVE-2 Architecture.
 
-![](https://github.com/muddassir235/Self-Driving-Car-Steering-Simulator/blob/master/Model.PNG?raw=true)
+<center>
+<table>
+  <tr>
+    <td colspan="4"><b>Convolutional Layers</b></td>
+  </tr>
+  <tr>
+  <tr>
+    <td><b><i>Layer No.</i></b></td>
+    <td><b><i>Kernel Size</i></b></td>
+    <td><b><i>No. of Kernels</i></b></td>
+    <td><b><i>Stride</i></b></td>
+  </tr>
+    <td>**1st**</td>
+    <td>5x5</td>
+    <td>24</td>
+    <td>2x2</td>
+  </tr>
+  <tr>
+    <td>**2nd**</td>
+    <td>5x5</td>
+    <td>36</td>
+    <td>2x2</td>
+  </tr>
+  <tr>
+    <td>**3rd**</td>
+    <td>5x5</td>
+    <td>48</td>
+    <td>2x2</td>
+  </tr>
+  <tr>
+    <td>**4th**</td>
+    <td>3x3</td>
+    <td>64</td>
+    <td>1x1</td>
+  </tr>
+  <tr>
+    <td>**5th**</td>
+    <td>3x3</td>
+    <td>64</td>
+    <td>1x1</td>
+  </tr>
+
+  <tr>
+    <td colspan="4"><b>Fully Connected Layers</b></td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><b><i>Layer No.</i></b></td>
+    <td colspan="2"><b><i>Width</i></b></td>
+  </tr>
+  <tr>
+    <td colspan="2">**6th**</td>
+    <td colspan="2">1164</td>
+  </tr>
+  <tr>
+    <td colspan="2">**7th**</td>
+    <td colspan="2">100</td>
+  </tr>
+  <tr>
+    <td colspan="2">**8th**</td>
+    <td colspan="2">50</td>
+  </tr>
+  <tr>
+    <td colspan="2">**9th**</td>
+    <td colspan="2">10</td>
+  </tr>
+
+  <tr>
+    <td colspan="4"><b>Output Layer</b></td>
+  </tr>
+  <tr>
+    <td colspan="1"><b>**10th**</b></td>
+    <td colspan="3">1 Neuron followed by <b>2*atan(x)</b> activation</td>
+  </tr>
+</table>
+</center><p></p><center><i><b>Table showing hyperparameters</b></i></center>
+
+
 
 #### Augmentation
 
