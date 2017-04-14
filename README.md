@@ -3,8 +3,8 @@
 This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) implementation of the NVIDIA End to End Learning for Self-Driving Cars **(DAVE-2)** [paper](https://arxiv.org/pdf/1604.07316.pdf).
 
 [//]: # (Image References)
-[image0]: ./Img/simulator_image.png
-[image1]: ./Img/dave2.png
+[image0]: ./Img/simulator_image.jpg
+[image1]: ./Img/dave2.jpg
 
 ![][image0]
 
