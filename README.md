@@ -24,8 +24,12 @@ The model has five convolutional layers, four fully connected layers and one out
 
 ![][image1]
 
-<p></p>A complete table of the structure of the DAVE-2 Architecture.
+<p></p>
 
+<p></p>
+
+<p></p>A complete table of the structure of the DAVE-2 Architecture.
+<p></p>
 <table>
   <tr>
     <td colspan="4"><b>Convolutional Layers</b></td>
@@ -96,7 +100,7 @@ The model has five convolutional layers, four fully connected layers and one out
     <td colspan="4"><b>Output Layer</b></td>
   </tr>
   <tr>
-    <td colspan="1"><b>**10th**</b></td>
+    <td colspan="1"><b>10th</b></td>
     <td colspan="3">1 Neuron followed by <b>2*atan(x)</b> activation</td>
   </tr>
 </table>
