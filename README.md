@@ -39,31 +39,31 @@ The model has five convolutional layers, four fully connected layers and one out
     <td><i>No. of Kernels</i></td>
     <td><i>Stride</i></td>
   </tr>
-    <td><b>1st</b></td>
+    <td><i>1st</i></td>
     <td>5x5</td>
     <td>24</td>
     <td>2x2</td>
   </tr>
   <tr>
-    <td><b>2nd</b></td>
+    <td><i>2nd</i></td>
     <td>5x5</td>
     <td>36</td>
     <td>2x2</td>
   </tr>
   <tr>
-    <td><b>3rd</b></td>
+    <td><i>3rd</i></td>
     <td>5x5</td>
     <td>48</td>
     <td>2x2</td>
   </tr>
   <tr>
-    <td><b>4th</b></td>
+    <td><i>4th</i></td>
     <td>3x3</td>
     <td>64</td>
     <td>1x1</td>
   </tr>
   <tr>
-    <td><b>5th</b></td>
+    <td><i>5th</i></td>
     <td>3x3</td>
     <td>64</td>
     <td>1x1</td>
@@ -78,19 +78,19 @@ The model has five convolutional layers, four fully connected layers and one out
     <td colspan="2"><i>Width</i></td>
   </tr>
   <tr>
-    <td colspan="2"><b>6th</b></td>
+    <td colspan="2"><i>6th</i></td>
     <td colspan="2">1164</td>
   </tr>
   <tr>
-    <td colspan="2"><b>7th</b></td>
+    <td colspan="2"><i>7th</i></td>
     <td colspan="2">100</td>
   </tr>
   <tr>
-    <td colspan="2"><b>8th</b></td>
+    <td colspan="2"><i>8th</i></td>
     <td colspan="2">50</td>
   </tr>
   <tr>
-    <td colspan="2"><b>9th</b></td>
+    <td colspan="2"><i>9th</i></td>
     <td colspan="2">10</td>
   </tr>
 
@@ -98,7 +98,7 @@ The model has five convolutional layers, four fully connected layers and one out
     <td colspan="4"><b>Output Layer</b></td>
   </tr>
   <tr>
-    <td colspan="1"><b>10th</b></td>
+    <td colspan="1"><i>10th</i></td>
     <td colspan="3">1 Neuron followed by <b>2*atan(x)</b> activation</td>
   </tr>
 </table>
