@@ -2,8 +2,8 @@
 
 This is a Self-Driving Car steering simulator based on Sully Chen's [model](https://github.com/SullyChen/Autopilot-TensorFlow/blob/master/model.py) implementation of the NVIDIA End to End Learning for Self-Driving Cars **(DAVE-2)** [paper](https://arxiv.org/pdf/1604.07316.pdf).
 
-<center>
-<img src="https://cdn-images-1.medium.com/max/1980/1*2u3zy6GRNBKb5CAVNqkk9Q.png"  width="500" height="370" /><p></p></center><center><i><b>Udacity Self-Driving Vehicle Simulator</b> (Credits: Udacity)</i></center>
+<div style="text-align:center">
+<img src="https://cdn-images-1.medium.com/max/1980/1*2u3zy6GRNBKb5CAVNqkk9Q.png"  width="500" height="370" /><p></p></div><div style="text-align:center"><i><b>Udacity Self-Driving Vehicle Simulator</b> (Credits: Udacity)</i></center></div>
 
 #  _**How to run**_
   * _**To drive simply type the following command in while in the project directory** (I have made the project using tensorflow such that there is no need to type `model.json` in front of it):_
@@ -19,12 +19,12 @@ This is a Self-Driving Car steering simulator based on Sully Chen's [model](http
 ### Model
 The model has five convolutional layers, four fully connected layers and one output layer. It applies dropout in all of the fully connected layers. The following diagram from the NVIDIA paper illustrates the model.
 
-<center><img src="https://cdn-images-1.medium.com/max/1980/1*_ALA3C3qeRQgJoh3LZnFSg.png"  width="500" height="730" /><p></p></center><center><i><b>DAVE-2 Architecture</b> (Credits: NVIDIA)</i></center>
+<div style="text-align:center"><img src="https://cdn-images-1.medium.com/max/1980/1*_ALA3C3qeRQgJoh3LZnFSg.png"  width="500" height="730" /><p></p></div><div style="text-align:center"><i><b>DAVE-2 Architecture</b> (Credits: NVIDIA)</i></div>
 
 
 <p></p>A complete table of the structure of the DAVE-2 Architecture.
 
-<center>
+<div align="center">
 <table>
   <tr>
     <td colspan="4"><b>Convolutional Layers</b></td>
@@ -99,7 +99,7 @@ The model has five convolutional layers, four fully connected layers and one out
     <td colspan="3">1 Neuron followed by <b>2*atan(x)</b> activation</td>
   </tr>
 </table>
-</center><p></p><center><i><b>Table showing hyperparameters</b></i></center>
+</div><p></p><div style="text-align:center"><i><b>Table showing hyperparameters</b></i></div>
 
 
 
