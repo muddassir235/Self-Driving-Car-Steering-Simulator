@@ -5,6 +5,11 @@ This is a Self-Driving Car steering simulator based on Sully Chen's [model](http
 [//]: # (Image References)
 [image0]: ./Img/simulator_image.jpg
 [image1]: ./Img/dave2.jpg
+[image2]: ./Img/sat_var.jpg
+[image3]: ./Img/light_var.jpg
+[image4]: ./Img/shad.jpg
+[image5]: ./Img/trans.jpg
+[image6]: ./Img/eq.jpg
 
 ![][image0]
 
@@ -109,28 +114,6 @@ The model has five convolutional layers, four fully connected layers and one out
 
 I applied Augmentation techniques in order to make my model generalize from track 1 to track 2. I used the following Augmentation techniques.
 
-* Random image gamma variation.
-  ```python
-  def random_gamma_correction_rgb(self,x):
-        # Partially taken from http://www.pyimagesearch.com/2015/10/05/opencv-gamma-correction/
-        # build a lookup table mapping the pixel values [0, 255] to
-        # their adjusted gamma values
-        gamma = 0.4 + random() * 1.2
-        invGamma = 1.0 / gamma
-        table = np.array([((i / 255.0) ** invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8")
-
-        # apply gamma correction using the lookup table
-        return cv2.LUT(x, table)
-  ```
-* Random image brightness variation.
-```python
-def random_brightness_change_rgb(self,x):
-    brightness_change = 0.4 + random()*1.2
-    x = np.array(x)
-    x = cv2.cvtColor(x,cv2.COLOR_RGB2HSV)
-    x[:,:,2] = x[:,:,2]*brightness_change
-    return cv2.cvtColor(x,cv2.COLOR_HSV2RGB)
-```
 * Random image saturation variation.
 ```python
 def random_saturation_change(self,x):
@@ -140,6 +123,7 @@ def random_saturation_change(self,x):
     x[:,:,1] = x[:,:,1]*saturation_change
     return cv2.cvtColor(x,cv2.COLOR_HSV2RGB)
 ```
+![][image2]
 * Random image lightness variation.
 ```python
 def random_lightness_change(self,x):
@@ -149,6 +133,7 @@ def random_lightness_change(self,x):
       x[:,:,1] = x[:,:,1]*lightness_change
       return cv2.cvtColor(x,cv2.COLOR_HLS2RGB)
 ```
+![][image3]
 * Addition of random shadows to the image.
 ```python
 def random_shadow(self,x):
@@ -175,16 +160,10 @@ def random_shadow(self,x):
     x = cv2.cvtColor(x,cv2.COLOR_HSV2RGB)
     return x
 ```
-* Addition of random blur in the image.
-```python
-def random_blur(self,x):
-      kernel_size = 1+int(random()*9)
-      if(kernel_size%2 == 0):
-          kernel_size = kernel_size + 1
-      x = cv2.GaussianBlur(x,(kernel_size,kernel_size),0)
-      return x
-```
+![][image4]
 * Random translation in the image.
+Translations are added according to the following equation:
+![][image6]
 ```python
 def random_translation(self,x,steer):
       x = np.array(x)
@@ -196,8 +175,9 @@ def random_translation(self,x,steer):
       translate_x = -30 + rand_for_x*60
 
       M = np.float32([[1,0,translate_x],[0,1,translate_y]])
-      return cv2.warpAffine(x,M,(cols,rows)), (steer+(rand_for_x-0.5)*0.2)
+      return cv2.warpAffine(x,M,(cols,rows)), (steer+(rand_for_x-0.5)*0.4)
 ```
+![][image5]
 
 * Also images are randomly flipped horizontally.
 
