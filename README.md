@@ -5,11 +5,11 @@ This is a Self-Driving Car steering simulator based on Sully Chen's [model](http
 [//]: # (Image References)
 [image0]: ./Img/simulator_image.jpg
 [image1]: ./Img/dave2.jpg
-[image2]: ./Img/sat_var.jpg
-[image3]: ./Img/light_var.jpg
-[image4]: ./Img/shad.jpg
-[image5]: ./Img/trans.jpg
-[image6]: ./Img/eq.jpg
+[image2]: ./Img/aug/sat_var.png
+[image3]: ./Img/aug/light_var.png
+[image4]: ./Img/aug/shad.png
+[image5]: ./Img/aug/trans.png
+[image6]: ./Img/aug/eq.png
 
 ![][image0]
 
