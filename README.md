@@ -361,3 +361,7 @@ generate_validation_batch(self) # validation data generator
 ```python
 generate_test_batch(self) # test data generator
 ```
+
+## [Apps by Muddassir Ahmed](https://play.google.com/store/apps/developer?id=Muddassir+Khan):
+* https://play.google.com/store/apps/details?id=com.muddassirkhan.quran_android
+* https://play.google.com/store/apps/details?id=com.app.kitaabattawheed
